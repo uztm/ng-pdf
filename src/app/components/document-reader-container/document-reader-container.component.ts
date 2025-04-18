@@ -15,16 +15,24 @@ export class DocumentReaderContainerComponent implements AfterViewInit {
     // Nothing to do here for now
   }
 
-
   printPDF(): void {
     const element = this.stagingRef.nativeElement;
+    const content = element.innerHTML;
 
-    const originalContents = document.body.innerHTML;
-    const printContents = element.innerHTML;
-
-    document.body.innerHTML = printContents;
-    window.print();
-    document.body.innerHTML = originalContents;
+    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    if (printWindow) {
+      printWindow.document.write(`
+      <html>
+        <head>
+          <title>Print</title>
+        </head>
+        <body onload="window.print(); window.close();">
+          ${content}
+        </body>
+      </html>
+    `);
+      printWindow.document.close();
+    }
   }
 
 
