@@ -14,7 +14,9 @@ export class DocumentContentComponent {
 
 <!--  jhshjkdgkg-->
   <p>This is content loaded dynamically as HTML.</p>
-<!--    <img src="https://blog.logrocket.com/wp-content/uploads/2023/06/Preline-UI.png"/>-->
+    <div class="mt-5">
+    <img src="images.png" class="object-contain"/>
+</div>
   <h2 class="font-bold text-2xl">Introduction</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eget lorem a nulla dapibus tincidunt.</p>
 

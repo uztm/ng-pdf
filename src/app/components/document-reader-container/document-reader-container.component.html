@@ -7,7 +7,7 @@
       <button (click)="downloadPDF()"  type="button" class="cursor-pointer py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
         Download PDF
       </button>
-      <button type="button" class="cursor-pointer py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+      <button  (click)="printPDF()" type="button" class="cursor-pointer py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
         Print PDF
       </button>
     </div>
@@ -19,7 +19,7 @@
   <div id="document" class="bg-white shadow-md my-4 overflow-hidden" style="width: 210mm; padding: 20mm;">
     <div #stagingContainer>
 
-      <ng-content></ng-content>
+      <ng-content ></ng-content>
     </div>
   </div>
 </div>
