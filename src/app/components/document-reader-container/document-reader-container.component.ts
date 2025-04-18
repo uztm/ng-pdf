@@ -17,41 +17,18 @@ export class DocumentReaderContainerComponent implements AfterViewInit {
 
 
   printPDF(): void {
-    const printContents = this.stagingRef.nativeElement.innerHTML;
-    const printWindow = window.open('', '', 'width=800,height=600');
+    const element = this.stagingRef.nativeElement;
 
-    if (printWindow) {
-      printWindow.document.write(`
-      <html>
-        <head>
-          <title>Print PDF</title>
-          <style>
-            @page {
-              size: A4;
-              margin: 20mm;
-            }
-            body {
-              font-family: Arial, sans-serif;
-              margin: 0;
-              padding: 0;
-            }
-            .page {
-              width: 210mm;
-              min-height: 297mm;
-              margin: auto;
-              background: white;
-              box-shadow: 0 0 5px rgba(0,0,0,0.1);
-            }
-          </style>
-        </head>
-        <body onload="window.print(); window.close();">
-          <div class="page">${printContents}</div>
-        </body>
-      </html>
-    `);
-      printWindow.document.close();
-    }
+    const originalContents = document.body.innerHTML;
+    const printContents = element.innerHTML;
+
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
   }
+
+
+
 
 
   downloadPDF(): void {
