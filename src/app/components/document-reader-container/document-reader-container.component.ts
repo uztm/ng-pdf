@@ -25,9 +25,6 @@ export class DocumentReaderContainerComponent implements AfterViewInit {
     this.zoomLevel = Math.max(this.zoomLevel - 0.1, 0.5); // min 50%
   }
 
-  resetZoom(): void {
-    this.zoomLevel = 1;
-  }
 
 
 
