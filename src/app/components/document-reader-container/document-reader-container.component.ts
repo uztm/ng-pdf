@@ -39,7 +39,7 @@ export class DocumentReaderContainerComponent implements AfterViewInit {
     const element = this.stagingRef.nativeElement;
     const content = element.innerHTML;
 
-    const printWindow = window.open('', '_blank', 'width=1000,height=700');
+    const printWindow = window.open('', '_blank', );
     if (printWindow) {
       const sizeStyle = this.orientation === 'landscape'
         ? '@page { size: A4 landscape; }'
