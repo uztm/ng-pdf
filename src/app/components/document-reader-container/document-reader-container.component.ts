@@ -1,66 +1,75 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { jsPDF } from 'jspdf';
+import { Component, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-document-reader-container',
   templateUrl: './document-reader-container.component.html',
-  styleUrls: ['./document-reader-container.component.css']
+  styleUrls: ['./document-reader-container.component.css'],
+  imports: [
+    DecimalPipe
+  ]
 })
-export class DocumentReaderContainerComponent implements AfterViewInit {
+export class DocumentReaderContainerComponent implements AfterViewInit, OnChanges {
+  @Input() orientation: 'portrait' | 'landscape' = 'portrait'; // explicitly typed Input
   @ViewChild('stagingContainer') stagingRef!: ElementRef;
+  @ViewChild('documentRef') documentRef!: ElementRef;
 
-  constructor() {}
+  zoomLevel: number = 1; // 1 = 100%
 
-  ngAfterViewInit() {
-    // Nothing to do here for now
+  ngOnChanges(changes: SimpleChanges): void {
+    // if (changes.orientation) {
+    //   // Handle orientation changes if needed
+    // }
+  }
+
+  zoomIn(): void {
+    this.zoomLevel = Math.min(this.zoomLevel + 0.1, 2); // max 200%
+  }
+
+  zoomOut(): void {
+    this.zoomLevel = Math.max(this.zoomLevel - 0.1, 0.5); // min 50%
+  }
+
+  resetZoom(): void {
+    this.zoomLevel = 1;
   }
 
   printPDF(): void {
     const element = this.stagingRef.nativeElement;
     const content = element.innerHTML;
 
-    const printWindow = window.open('', '_blank', 'width=800,height=600');
+    const printWindow = window.open();
     if (printWindow) {
+      const sizeStyle = this.orientation === 'landscape'
+        ? '@page { size: A4 landscape; }'
+        : '@page { size: A4 portrait; }';
+
       printWindow.document.write(`
-      <html>
-        <head>
-          <title>Print</title>
-        </head>
-        <body onload="window.print(); window.close();">
-          ${content}
-        </body>
-      </html>
-    `);
+        <html>
+          <head>
+            <title>Print</title>
+            <style>
+              ${sizeStyle}
+              body {
+                margin: 0;
+                padding: 20mm;
+                font-family: sans-serif;
+              }
+            </style>
+          </head>
+          <body onload="window.print(); window.close();">
+
+            ${content}
+          </body>
+        </html>
+      `);
       printWindow.document.close();
     }
   }
 
+  constructor() {}
 
-
-
-
-  downloadPDF(): void {
-    const doc = new jsPDF();
-
-    const element = this.stagingRef.nativeElement;
-
-
-
-
-    // You can specify the margins and other configurations here for the PDF
-    doc.html(element, {
-      callback: function (doc) {
-        // After generating the PDF, save it
-        doc.save('document.pdf');
-
-      },
-      margin: [10, 0, 25, 0], // Margins (Top, Right, Bottom, Left)
-      x: 10,  // x position
-      y: 10,  // y position
-      width: 190,  // Set width for content (A4 page width)
-      windowWidth: 650,  // Adjust according to the width of your document content
-
-
-    });
+  ngAfterViewInit() {
+    // Any other initialization can go here
   }
 }

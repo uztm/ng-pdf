@@ -1,25 +1,36 @@
 <!-- Fixed header -->
-<div class="fixed top-0 w-full shadow">
-  <div class="w-ful h-[100px] bg-white flex items-center justify-between px-5 ">
+<div class="fixed top-0 w-full shadow z-10 bg-white">
+  <div class="w-full h-[100px] flex items-center justify-between px-5">
     <h1 class="font-bold text-xl">NgPDF</h1>
 
-    <div class="gap-2 flex">
-      <button (click)="downloadPDF()"  type="button" class="cursor-pointer py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-        Download PDF
-      </button>
-      <button  (click)="printPDF()" type="button" class="cursor-pointer py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
-        Print PDF
-      </button>
+    <div class="flex items-center gap-6">
+      <!-- Zoom Controls -->
+      <div class="flex items-center gap-2">
+        <button (click)="zoomOut()" class="py-2 px-3 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700">−</button>
+        <div class="w-12 text-center font-medium">{{ (zoomLevel * 100) | number:'1.0-0' }}%</div>
+        <button (click)="zoomIn()" class="py-2 px-3 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700">+</button>
+      </div>
+
+      <!-- Print/Download -->
+      <div class="flex gap-2">
+        <button (click)="printPDF()" type="button" class="py-2 px-3 text-sm font-medium rounded-lg bg-blue-600 text-white hover:bg-blue-700">
+          Print PDF
+        </button>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- Main content with A4 size -->
 <div class="w-full min-h-screen flex flex-col items-center pt-[120px] bg-gray-100">
-  <div id="document" class="bg-white shadow-md my-4 overflow-hidden" style="width: 210mm; padding: 20mm;">
+  <div
+    #documentRef
+    class="bg-white shadow-md my-4 overflow-hidden origin-top"
+    [style.width]="orientation === 'landscape' ? '297mm' : '210mm'"
+    [style.transform]="'scale(' + zoomLevel + ')'"
+    style="padding: 20mm;">
     <div #stagingContainer>
-
-      <ng-content ></ng-content>
+      <ng-content></ng-content>
     </div>
   </div>
 </div>
