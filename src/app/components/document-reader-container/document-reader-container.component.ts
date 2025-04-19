@@ -1,26 +1,21 @@
-import { Component, Input, AfterViewInit, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular/core';
+import {DecimalPipe, NgStyle} from '@angular/common';
 
 @Component({
   selector: 'app-document-reader-container',
   templateUrl: './document-reader-container.component.html',
-  styleUrls: ['./document-reader-container.component.css'],
   imports: [
+    NgStyle,
     DecimalPipe
-  ]
+  ],
+  styleUrls: ['./document-reader-container.component.css']
 })
-export class DocumentReaderContainerComponent implements AfterViewInit, OnChanges {
-  @Input() orientation: 'portrait' | 'landscape' = 'portrait'; // explicitly typed Input
+export class DocumentReaderContainerComponent implements AfterViewInit {
+  @Input() orientation: 'portrait' | 'landscape' = 'portrait';
   @ViewChild('stagingContainer') stagingRef!: ElementRef;
   @ViewChild('documentRef') documentRef!: ElementRef;
 
   zoomLevel: number = 1; // 1 = 100%
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // if (changes.orientation) {
-    //   // Handle orientation changes if needed
-    // }
-  }
 
   zoomIn(): void {
     this.zoomLevel = Math.min(this.zoomLevel + 0.1, 2); // max 200%
@@ -34,11 +29,17 @@ export class DocumentReaderContainerComponent implements AfterViewInit, OnChange
     this.zoomLevel = 1;
   }
 
+
+
+  constructor() {}
+
+  ngAfterViewInit() {}
+
   printPDF(): void {
     const element = this.stagingRef.nativeElement;
     const content = element.innerHTML;
 
-    const printWindow = window.open();
+    const printWindow = window.open('', '_blank', 'width=1000,height=700');
     if (printWindow) {
       const sizeStyle = this.orientation === 'landscape'
         ? '@page { size: A4 landscape; }'
@@ -58,7 +59,6 @@ export class DocumentReaderContainerComponent implements AfterViewInit, OnChange
             </style>
           </head>
           <body onload="window.print(); window.close();">
-
             ${content}
           </body>
         </html>
@@ -67,9 +67,4 @@ export class DocumentReaderContainerComponent implements AfterViewInit, OnChange
     }
   }
 
-  constructor() {}
-
-  ngAfterViewInit() {
-    // Any other initialization can go here
-  }
 }
