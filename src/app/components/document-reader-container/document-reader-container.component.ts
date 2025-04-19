@@ -8,7 +8,6 @@ import {DecimalPipe, NgStyle} from '@angular/common';
     NgStyle,
     DecimalPipe
   ],
-  styleUrls: ['./document-reader-container.component.css']
 })
 export class DocumentReaderContainerComponent implements AfterViewInit {
   @Input() orientation: 'portrait' | 'landscape' = 'portrait';
