@@ -2,8 +2,8 @@ import { Component, AfterViewInit, ElementRef, ViewChild, Input } from '@angular
 import {DecimalPipe, NgClass, NgStyle} from '@angular/common';
 
 @Component({
-  selector: 'app-document-reader-container',
-  templateUrl: './document-reader-container.component.html',
+  selector: 'ng-report-container',
+  templateUrl: './ng-report-container.component.html',
   styleUrl: './document-reader-container.component.css',
   imports: [
     NgStyle,
@@ -11,8 +11,9 @@ import {DecimalPipe, NgClass, NgStyle} from '@angular/common';
     NgClass
   ],
 })
-export class DocumentReaderContainerComponent implements AfterViewInit {
+export class NgReportContainerComponent implements AfterViewInit {
   @Input() orientation: 'portrait' | 'landscape' = 'portrait';
+  @Input() title:string='';
   @ViewChild('stagingContainer') stagingRef!: ElementRef;
   @ViewChild('documentRef') documentRef!: ElementRef;
 
