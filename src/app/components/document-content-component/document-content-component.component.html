@@ -1,0 +1,123 @@
+<div class="document-container">
+  <div class="title" *ngFor="let item of Data">
+    <div class="title_row">
+      <h2 class="title_head_text">Документ</h2>
+      <h2 class="title_text">{{item.document}}</h2>
+    </div>
+    <div class="title_row">
+      <h2 class="title_head_text">Номер</h2>
+      <h2 class="title_text">{{item.documentNumber}}</h2>
+    </div>
+    <div class="title_row">
+      <h2 class="title_head_text">Дата</h2>
+      <h2 class="title_text">{{item.date}}</h2>
+    </div>
+  </div>
+  <h2 class="table_name">Регистр бухгалтерии</h2>
+  <table class="main-table" *ngFor="let item of Data">
+    <!-- table header -->
+    <tr class="header-row">
+      <th rowspan="3" class="no-column border-bold-bottom">№</th>
+      <th rowspan="3" class="account-column border-bold-bottom">Счет ДТ</th>
+      <th rowspan="3" class="subaccount-column border-bold-bottom">
+        Субконто ДТ
+      </th>
+      <th rowspan="3" class="account-column border-bold-bottom">Счет КТ</th>
+      <th rowspan="3" class="subaccount-column border-bold-bottom">
+        Субконто КТ
+      </th>
+      <th colspan="1" class="border-bottom border-left">Кол-во</th>
+      <th colspan="2" class="border-bottom">Сумма в сум</th>
+    </tr>
+    <tr class="header-row">
+      <th class="sub-header kol-val border-left">Валюта</th>
+      <th class="sub-header summa-column">Курс</th>
+      <th class="sub-header summa-column">Сумма в валюте</th>
+    </tr>
+    <tr class="header-row">
+      <th colspan="3" class="sub-header com-column border-bold-bottom">
+        Комментарий
+      </th>
+    </tr>
+
+    <!-- table row -->
+    <tr>
+      <td rowspan="5">{{ item.rowIndex }}</td>
+      <td rowspan="5">{{ item.debitAccount.acount }}</td>
+      <td class="left-align">{{ item.debitAccount.subconto1.name }}</td>
+      <td rowspan="5">{{ item.contorAccount.acount }}</td>
+      <td class="left-align">{{ item.contorAccount.subconto1.name }}</td>
+      <td rowspan="1">{{ item.quantity }}</td>
+      <td rowspan="1" colspan="2" class="right-align">{{ item.amount }}</td>
+    </tr>
+    <tr>
+      <td class="left-align">{{ item.debitAccount.subconto2.name }}</td>
+      <td class="left-align">{{ item.contorAccount.subconto2.name }}</td>
+      <td>{{ item.currency }}</td>
+      <td>{{ item.course }}</td>
+      <td>{{ item.exchangeRate }}</td>
+    </tr>
+    <tr>
+      <td class="left-align">{{ item.debitAccount.subconto3.name }}</td>
+      <td class="left-align">{{ item.contorAccount.subconto3.name }}</td>
+      <td rowspan="3" colspan="3" class="center-align">
+        {{ item.comment }}
+      </td>
+    </tr>
+    <tr>
+      <td class="left-align">{{ item.debitAccount.subconto4.name }}</td>
+      <td class="left-align">{{ item.contorAccount.subconto4.name }}</td>
+    </tr>
+    <tr>
+      <td class="left-align">{{ item.debitAccount.subconto5.name }}</td>
+      <td class="left-align">{{ item.contorAccount.subconto5.name }}</td>
+    </tr>
+    <!-- table row -->
+    <!-- <tr>
+      <td rowspan="5">1</td>
+      <td rowspan="5">5110</td>
+      <td class="left-align">ОСНОВНОЙ 2</td>
+      <td rowspan="5">4010</td>
+      <td class="left-align">TOLIBJОNOV SHUHRAT QUDRAT O'G'LI</td>
+      <td rowspan="1"></td>
+      <td rowspan="1" colspan="2" class="right-align">10 000 000,00</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="left-align">Договор №5 от 03 января 2025г.</td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td rowspan="3" colspan="3" class="center-align">
+        3200 За эксплуатацию автотранспорта 01 183 FGA согно дог №5 от
+        03.01.2025 года за март 2025 года Tolibjоnov Shuhrat
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+    </tr> -->
+
+    <!-- footer-row -->
+    <tr class="footer-row">
+      <td colspan="5" rowspan="2" style="text-align: right" class="border-3px">
+        Итого:
+      </td>
+      <td class="border-3px"></td>
+      <td colspan="2" class="border-3px right-align">31 806 393,60</td>
+    </tr>
+    <tr>
+      <td class="border-3px"></td>
+      <td class="border-3px"></td>
+      <td class="border-3px"></td>
+    </tr>
+  </table>
+</div>
