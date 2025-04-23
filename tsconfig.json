@@ -6,6 +6,12 @@
     "paths": {
       "document-reader": [
         "./dist/document-reader"
+      ],
+      "nf-document-reader": [
+        "./dist/nf-document-reader"
+      ],
+      "ng-document-reader": [
+        "./dist/ng-document-reader"
       ]
     },
     "outDir": "./dist/out-tsc",

@@ -124,6 +124,72 @@
           }
         }
       }
+    },
+    "nf-document-reader": {
+      "projectType": "library",
+      "root": "projects/nf-document-reader",
+      "sourceRoot": "projects/nf-document-reader/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/nf-document-reader/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/nf-document-reader/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/nf-document-reader/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/nf-document-reader/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "ng-document-reader": {
+      "projectType": "library",
+      "root": "projects/ng-document-reader",
+      "sourceRoot": "projects/ng-document-reader/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/ng-document-reader/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ng-document-reader/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/ng-document-reader/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/ng-document-reader/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
