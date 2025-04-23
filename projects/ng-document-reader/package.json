@@ -1,0 +1,23 @@
+{
+  "name": "ng-document-reader",
+  "version": "0.1.2",
+  "description": "An Angular library for reading documents. added font",
+  "main": "bundles/ng-document-reader.umd.js",
+  "module": "fesm2015/ng-document-reader.js",
+  "es2015": "fesm2015/ng-document-reader.js",
+  "typings": "ng-document-reader.d.ts",
+  "metadata": "ng-document-reader.metadata.json",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "author": "Temirov Bekzodbek",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
+}
