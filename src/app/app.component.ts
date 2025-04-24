@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 
-import {DocumentContentComponent} from './components/document-content-component/document-content-component.component';
-import {NgReportContainerComponent} from './components/ng-report-container/ng-report-container.component';
+import { CommonModule } from '@angular/common';
+import { DocumentContentComponent } from './components/document-content-component/document-content-component.component';
+import { NgDocumentReaderComponent } from 'ng-document-reader';
 
 @Component({
   selector: 'app-root',
-  imports: [ DocumentContentComponent, NgReportContainerComponent],
-  templateUrl: './app.component.html',
+  imports: [DocumentContentComponent, NgDocumentReaderComponent, CommonModule],
+templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
@@ -14,5 +15,15 @@ export class AppComponent {
 
 
   orientation: 'portrait' | 'landscape' = 'portrait';
+
+  isModalOpen = false;
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
 
 }

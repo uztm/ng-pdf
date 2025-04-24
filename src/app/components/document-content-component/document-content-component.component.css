@@ -19,7 +19,7 @@
   padding: 0;
   margin: 0;
 }
-h2{
+h2 {
   font-weight: bold;
 }
 
@@ -36,7 +36,7 @@ td {
   vertical-align: middle;
 }
 td {
-  height: 20px;
+  height: auto;
 }
 .left-align {
   text-align: left;
@@ -63,10 +63,10 @@ td {
   width: 15px;
 }
 .account-column {
-  width: 35px;
+  width: 75px;
 }
 .subaccount-column {
-  width: 220px;
+  width: 210px;
 }
 .footer-row {
   font-weight: bold;
@@ -89,4 +89,74 @@ td {
 
 .border-3px {
   border: 3px solid #000;
+}
+
+.title_input_text {
+  font-weight: bold;
+  outline: none;
+}
+
+.autogrow-textarea {
+  width: 100%;
+  height: auto;
+  resize: none;
+  overflow: hidden;
+}
+.export-button {
+  margin-top: 10px;
+  text-align: right;
+}
+
+.btn-excel {
+  background-color: #217346;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-excel:hover {
+  background-color: #1e6e41;
+}
+
+/* Font Awesome ni ishlatmoqchi bo'lsangiz */
+.fa-file-excel-o {
+  font-size: 16px;
+}
+/*  */
+
+.cell-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  resize: none;
+  overflow: hidden;
+  border: none;
+  background: transparent;
+  padding: 2px 4px;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+}
+
+/* Auto-height for textareas */
+
+.comment-cell {
+  width: 100%;
+}
+
+.quantity-cell,
+.currency-cell,
+.course-cell,
+.exchange-cell {
+  text-align: center;
+}
+
+.amount-cell,
+.total-amount {
+  text-align: right;
 }

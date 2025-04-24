@@ -1,20 +1,26 @@
+<div class="export-button">
+  <button class="btn-excel" (click)="exportToExcel()">
+    <i class="fa fa-file-excel-o"></i> Excel ga yuklab olish
+  </button>
+</div>
 <div class="document-container">
-  <div class="title" *ngFor="let item of Data">
+  <div class="title" *ngIf="Data">
     <div class="title_row">
       <h2 class="title_head_text">Документ</h2>
-      <h2 class="title_text">{{item.document}}</h2>
+      <h2 class="title_text">{{ Data.document }}</h2>
     </div>
     <div class="title_row">
       <h2 class="title_head_text">Номер</h2>
-      <h2 class="title_text">{{item.documentNumber}}</h2>
+      <h2 class="title_text">{{ Data.documentNumber }}</h2>
     </div>
     <div class="title_row">
       <h2 class="title_head_text">Дата</h2>
-      <h2 class="title_text">{{item.date}}</h2>
+      <h2 class="title_text">{{ Data.date }}</h2>
     </div>
   </div>
   <h2 class="table_name">Регистр бухгалтерии</h2>
-  <table class="main-table" *ngFor="let item of Data">
+
+  <table class="main-table"  #mainTable>
     <!-- table header -->
     <tr class="header-row">
       <th rowspan="3" class="no-column border-bold-bottom">№</th>
@@ -41,71 +47,145 @@
     </tr>
 
     <!-- table row -->
-    <tr>
-      <td rowspan="5">{{ item.rowIndex }}</td>
-      <td rowspan="5">{{ item.debitAccount.acount }}</td>
-      <td class="left-align">{{ item.debitAccount.subconto1.name }}</td>
-      <td rowspan="5">{{ item.contorAccount.acount }}</td>
-      <td class="left-align">{{ item.contorAccount.subconto1.name }}</td>
-      <td rowspan="1">{{ item.quantity }}</td>
-      <td rowspan="1" colspan="2" class="right-align">{{ item.amount }}</td>
-    </tr>
-    <tr>
-      <td class="left-align">{{ item.debitAccount.subconto2.name }}</td>
-      <td class="left-align">{{ item.contorAccount.subconto2.name }}</td>
-      <td>{{ item.currency }}</td>
-      <td>{{ item.course }}</td>
-      <td>{{ item.exchangeRate }}</td>
-    </tr>
-    <tr>
-      <td class="left-align">{{ item.debitAccount.subconto3.name }}</td>
-      <td class="left-align">{{ item.contorAccount.subconto3.name }}</td>
-      <td rowspan="3" colspan="3" class="center-align">
-        {{ item.comment }}
-      </td>
-    </tr>
-    <tr>
-      <td class="left-align">{{ item.debitAccount.subconto4.name }}</td>
-      <td class="left-align">{{ item.contorAccount.subconto4.name }}</td>
-    </tr>
-    <tr>
-      <td class="left-align">{{ item.debitAccount.subconto5.name }}</td>
-      <td class="left-align">{{ item.contorAccount.subconto5.name }}</td>
-    </tr>
-    <!-- table row -->
-    <!-- <tr>
-      <td rowspan="5">1</td>
-      <td rowspan="5">5110</td>
-      <td class="left-align">ОСНОВНОЙ 2</td>
-      <td rowspan="5">4010</td>
-      <td class="left-align">TOLIBJОNOV SHUHRAT QUDRAT O'G'LI</td>
-      <td rowspan="1"></td>
-      <td rowspan="1" colspan="2" class="right-align">10 000 000,00</td>
-    </tr>
-    <tr>
-      <td></td>
-      <td class="left-align">Договор №5 от 03 января 2025г.</td>
-      <td></td>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td rowspan="3" colspan="3" class="center-align">
-        3200 За эксплуатацию автотранспорта 01 183 FGA согно дог №5 от
-        03.01.2025 года за март 2025 года Tolibjоnov Shuhrat
-      </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-    </tr> -->
-
+    <tbody *ngFor="let item of DataContent">
+      <tr>
+        <td rowspan="5">{{ item.rowIndex }}</td>
+        <td rowspan="5">
+          <textarea
+            class="cell-textarea"
+            [(ngModel)]="item.debitAccount.acount"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.debitAccount.subconto1.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td rowspan="5">
+          <textarea
+            class="cell-textarea"
+            [(ngModel)]="item.contorAccount.acount"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.contorAccount.subconto1.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td rowspan="1">
+          <textarea
+            class="cell-textarea quantity-cell"
+            [(ngModel)]="item.quantity"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td rowspan="1" colspan="2" class="right-align">
+          <textarea
+            class="cell-textarea amount-cell right-align"
+            [(ngModel)]="item.amount"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.debitAccount.subconto2.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.contorAccount.subconto2.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td>
+          <textarea
+            class="cell-textarea currency-cell"
+            [(ngModel)]="item.currency"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td>
+          <textarea
+            class="cell-textarea course-cell"
+            [(ngModel)]="item.course"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td>
+          <textarea
+            class="cell-textarea exchange-cell"
+            [(ngModel)]="item.exchangeRate"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.debitAccount.subconto3.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.contorAccount.subconto3.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td rowspan="3" colspan="3" class="center-align">
+          <textarea
+            class="cell-textarea comment-cell"
+            [(ngModel)]="item.comment"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.debitAccount.subconto4.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.contorAccount.subconto4.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.debitAccount.subconto5.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+        <td class="left-align">
+          <textarea
+            class="cell-textarea subconto-cell"
+            [(ngModel)]="item.contorAccount.subconto5.name"
+            (input)="autoResizeTextareas()"
+          ></textarea>
+        </td>
+      </tr>
+    </tbody>
     <!-- footer-row -->
     <tr class="footer-row">
       <td colspan="5" rowspan="2" style="text-align: right" class="border-3px">
