@@ -22,7 +22,7 @@
     "exceljs": "^4.4.0",
     "file-saver": "^2.0.5",
     "jspdf": "^3.0.1",
-    "ng-document-reader": "^0.1.5",
+    "ng-document-reader": "^0.2.1",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.4",

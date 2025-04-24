@@ -1,7 +1,9 @@
-<lib-ng-document-reader>
+<!-- <div class="">
+  <lib-ng-document-reader>
   <app-document-content-component></app-document-content-component>
 </lib-ng-document-reader>
-<!-- <table>
+</div> -->
+<table>
   <thead>
     <tr>
       <td>no</td>
@@ -23,4 +25,17 @@
       </td>
     </tr>
   </tbody>
-</table> -->
+</table>
+
+<div class="modal" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <lib-ng-document-reader>
+      <span close-action class="close" (click)="closeModal()">&times;</span>
+      <button header-action (click)="exportToExcel()" class="excel-btn">
+        <img src="/excel.png" alt="" />
+      </button>
+          <app-document-content-component (dataContentChange)="handleContentChange($event)"></app-document-content-component>
+    </lib-ng-document-reader>
+  </div>
+</div>
+<!-- (DataContentChange)="DataChanged($event)" -->

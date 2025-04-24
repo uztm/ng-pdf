@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, OnInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, OnDestroy, ElementRef, ViewChild, ViewChildren, QueryList, Output, EventEmitter } from '@angular/core';
 import { Data } from './data';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { ExcelExportService } from './excel.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -11,27 +10,31 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./document-content-component.component.css']
 })
 export class DocumentContentComponent implements AfterViewInit, OnInit, OnDestroy {
+
   Data = Data
-  DataContent = JSON.parse(JSON.stringify(Data.rowData));
-  @ViewChild('mainTable') mainTable: ElementRef | undefined;
+  DataContent = JSON.parse(JSON.stringify(this.Data.rowData));
+  @Output() dataContentChange = new EventEmitter<any>();
+
+  onContentChanged() {
+    this.dataContentChange.emit(this.DataContent);
+  }
+  // @Output() DataContentChange: any;
+
+  @ViewChild('mainTable') mainTable?: ElementRef<HTMLTableElement>;
+  @ViewChildren('cellTextarea') textareas!: QueryList<ElementRef<HTMLTextAreaElement>>;
+
   private intervalId: ReturnType<typeof setInterval> | undefined;
   private previousWidth: number = 0;
 
-  constructor(private excelExportService: ExcelExportService) { }
-
-  exportToExcel() {
-    this.excelExportService.exportToExcel(this.DataContent, this.Data);
-  }
+  constructor() { }
 
   ngOnInit(): void {
-    // Dastlabki yuklash paytida kechiktirish bilan bajarilishi kerak
     setTimeout(() => {
       this.autoResizeTextareas();
     }, 300);
   }
 
   ngAfterViewInit() {
-    // DOM to'liq yuklangandan keyin ishga tushadi
     setTimeout(() => {
       this.setupResizeWatcher();
       this.autoResizeTextareas();
@@ -39,11 +42,9 @@ export class DocumentContentComponent implements AfterViewInit, OnInit, OnDestro
   }
 
   setupResizeWatcher() {
-    // const table = document.querySelector('.main-table');
     if (this.mainTable) {
       this.previousWidth = this.mainTable.nativeElement.clientWidth;
 
-      // Jadval o'lchamlaridagi o'zgarishlarni kuzatish
       this.intervalId = setInterval(() => {
         if (this.mainTable) {
           const currentWidth = this.mainTable.nativeElement.clientWidth;
@@ -55,37 +56,27 @@ export class DocumentContentComponent implements AfterViewInit, OnInit, OnDestro
       }, 100);
     }
 
-    // Window o'lchamlari o'zgarganda ham yangilash
     window.addEventListener('resize', () => {
       this.autoResizeTextareas();
     });
   }
 
   ngOnDestroy() {
-    // Intervallarni to'xtatish
     if (this.intervalId) {
       clearInterval(this.intervalId);
     }
 
-    // Resize eventlarni o'chirish
     window.removeEventListener('resize', () => {
       this.autoResizeTextareas();
     });
   }
 
-  // TextArea larni o'lchamlarini moslash
   autoResizeTextareas() {
-    const textareas = document.querySelectorAll('.cell-textarea');
-
-    // Har bir textarea hajmini sozlash
-    textareas.forEach((element) => {
-      const textarea = element as HTMLTextAreaElement;
-      // Balandlikni oldin minimal qilish
+    this.textareas.forEach((element: ElementRef<HTMLTextAreaElement>) => {
+      const textarea = element.nativeElement;
       textarea.style.height = '0px';
-      // Keyin kontentga moslashtirish
       textarea.style.height = textarea.scrollHeight + 'px';
 
-      // Event listener qo'shish (faqat birinchi marta)
       if (!textarea.dataset['resizeInitialized']) {
         textarea.addEventListener('input', () => {
           textarea.style.height = '0px';
@@ -95,7 +86,6 @@ export class DocumentContentComponent implements AfterViewInit, OnInit, OnDestro
       }
     });
 
-    // Jadval kontentining ko'rinishini yangilash uchun
     if (this.mainTable) {
       this.mainTable.nativeElement.classList.add('initialized');
     }

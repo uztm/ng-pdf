@@ -1,8 +1,3 @@
-<div class="export-button">
-  <button class="btn-excel" (click)="exportToExcel()">
-    <i class="fa fa-file-excel-o"></i> Excel ga yuklab olish
-  </button>
-</div>
 <div class="document-container">
   <div class="title" *ngIf="Data">
     <div class="title_row">
@@ -20,7 +15,7 @@
   </div>
   <h2 class="table_name">Регистр бухгалтерии</h2>
 
-  <table class="main-table"  #mainTable>
+  <table class="main-table" #mainTable>
     <!-- table header -->
     <tr class="header-row">
       <th rowspan="3" class="no-column border-bold-bottom">№</th>
@@ -52,140 +47,159 @@
         <td rowspan="5">{{ item.rowIndex }}</td>
         <td rowspan="5">
           <textarea
-            class="cell-textarea"
+            #cellTextarea
+            class="cell-textarea center-align"
             [(ngModel)]="item.debitAccount.acount"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.debitAccount.subconto1.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td rowspan="5">
           <textarea
-            class="cell-textarea"
+            #cellTextarea
+            class="cell-textarea center-align"
             [(ngModel)]="item.contorAccount.acount"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.contorAccount.subconto1.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td rowspan="1">
           <textarea
+            #cellTextarea
             class="cell-textarea quantity-cell"
             [(ngModel)]="item.quantity"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td rowspan="1" colspan="2" class="right-align">
           <textarea
+            #cellTextarea
             class="cell-textarea amount-cell right-align"
             [(ngModel)]="item.amount"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
       </tr>
       <tr>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.debitAccount.subconto2.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.contorAccount.subconto2.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td>
           <textarea
+            #cellTextarea
             class="cell-textarea currency-cell"
             [(ngModel)]="item.currency"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td>
           <textarea
+            #cellTextarea
             class="cell-textarea course-cell"
             [(ngModel)]="item.course"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td>
           <textarea
+            #cellTextarea
             class="cell-textarea exchange-cell"
             [(ngModel)]="item.exchangeRate"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
       </tr>
       <tr>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.debitAccount.subconto3.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.contorAccount.subconto3.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td rowspan="3" colspan="3" class="center-align">
           <textarea
+            #cellTextarea
             class="cell-textarea comment-cell"
             [(ngModel)]="item.comment"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
       </tr>
       <tr>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.debitAccount.subconto4.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.contorAccount.subconto4.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
       </tr>
       <tr>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.debitAccount.subconto5.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
         <td class="left-align">
           <textarea
+            #cellTextarea
             class="cell-textarea subconto-cell"
             [(ngModel)]="item.contorAccount.subconto5.name"
-            (input)="autoResizeTextareas()"
+            (ngModelChange)="onContentChanged(); autoResizeTextareas()"
           ></textarea>
         </td>
       </tr>
     </tbody>
+
     <!-- footer-row -->
     <tr class="footer-row">
       <td colspan="5" rowspan="2" style="text-align: right" class="border-3px">
